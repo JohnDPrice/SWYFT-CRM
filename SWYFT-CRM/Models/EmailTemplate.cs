@@ -7,5 +7,9 @@ namespace SWYFT_CRM.Models
 {
     public class EmailTemplate
     {
+        int Id { get; set; }
+        int UserId { get; set; }
+        string Suubject { get; set; }
+        string Content { get; set; }
     }
 }

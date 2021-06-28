@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-namespace Tabloid.Models
+namespace SWYFT_CRM.Models
 {
     public class Lead
     {
@@ -22,20 +22,25 @@ namespace Tabloid.Models
         [MaxLength(255)]
         public string Email { get; set; }
         public DateTime DateOfBirth { get; set; }
-        public int leadStatusId { get; set; }
+        public int LeadStatusId { get; set; }
+        public LeadStatus LeadStatus { get; set; }
+        public DateTime DateCreated { get; set; }
 
         [Required]
-        public int userId { get; set; }
+        public int UserProfileId { get; set; }
 
         [Required]
-        public bool client { get; set; }
+        public bool Client { get; set; }
 
-        public int coverageTypeId { get; set; }
+        public int CoverageTypeId { get; set; }
+        public CoverageType CoverageType { get; set; }
 
-        public int insuranceCompanyId { get; set; }
+        public int InsuranceCompanyId { get; set; }
+        public InsuranceCompany InsuranceCompany { get; set; }
 
         [Required]
         public DateTime CreateDateTime { get; set; }
+        public UserProfile UserProfile { get; set; }
 
         public string FullName
         {

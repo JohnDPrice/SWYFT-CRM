@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace SWYFT_CRM.Models
 {
-    public class LeadStatus
+    public class InsuranceCompany
     {
         public int Id { get; set; }
         public string Name { get; set; }

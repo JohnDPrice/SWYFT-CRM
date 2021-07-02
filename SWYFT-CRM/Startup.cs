@@ -23,6 +23,11 @@ namespace SWYFT_CRM
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<IUserProfileRepository, UserProfileRepository>();
+            services.AddTransient<ILeadRepository, LeadRepository>();
+            services.AddTransient<ILeadStatusRepository, LeadStatusRepository>();
+            services.AddTransient<ICoverageTypeRepository, CoverageTypeRepository>();
+            services.AddTransient<IClientRepository, ClientRepository>();
+            services.AddTransient<IAppointmentRepository, AppointmentRepository>();
 
             var firebaseProjectId = Configuration.GetValue<string>("FirebaseProjectId");
             var googleTokenUrl = $"https://securetoken.google.com/{firebaseProjectId}";

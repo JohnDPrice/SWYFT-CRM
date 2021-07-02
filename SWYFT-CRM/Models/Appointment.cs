@@ -7,12 +7,15 @@ namespace SWYFT_CRM.Models
 {
     public class Appointment
     {
-        int Id { get; set; }
-        DateTime Time { get; set; }
-        string Notes { get; set; }
-        int LeadId { get; set; }
-        Lead Lead { get; set; }
-        int UserId { get; set; }
-        UserProfile UserProfile { get; set; }
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public string? Notes { get; set; }
+        public DateTime? Start { get; set; }
+        public DateTime? End { get; set; }
+        public bool? AllDay { get; set; }
+        public int LeadId { get; set; }
+        public Lead Lead { get; set; }
+        public int UserProfileId { get; set; }
+        public UserProfile UserProfile { get; set; }
     }
 }

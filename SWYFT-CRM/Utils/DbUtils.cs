@@ -49,6 +49,17 @@ namespace SWYFT_CRM.Utils
             return reader.GetBoolean(reader.GetOrdinal(column));
         }
 
+        public static bool? GetNullableBool(SqlDataReader reader, string column)
+        {
+            var ordinal = reader.GetOrdinal(column);
+            if (reader.IsDBNull(ordinal))
+            {
+                return null;
+            }
+
+            return reader.GetBoolean(ordinal);
+        }
+
         /// <summary>
         ///  Get a DateTime from a data reader object.
         ///  This method assumes the value is not NULL.

@@ -21,7 +21,6 @@ namespace SWYFT_CRM.Models
         [DataType(DataType.EmailAddress)]
         [MaxLength(255)]
         public string Email { get; set; }
-        public DateTime DateOfBirth { get; set; }
         public int LeadStatusId { get; set; }
         public LeadStatus LeadStatus { get; set; }
         public DateTime DateCreated { get; set; }
@@ -31,6 +30,8 @@ namespace SWYFT_CRM.Models
 
         [Required]
         public bool Client { get; set; }
+        public bool? Sold { get; set; }
+        public DateTime? SoldDate { get; set; }
 
         public int CoverageTypeId { get; set; }
         public CoverageType CoverageType { get; set; }
@@ -38,7 +39,6 @@ namespace SWYFT_CRM.Models
         public int InsuranceCompanyId { get; set; }
         public InsuranceCompany InsuranceCompany { get; set; }
 
-        [Required]
         public DateTime CreateDateTime { get; set; }
         public UserProfile UserProfile { get; set; }
 

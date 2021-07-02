@@ -1,19 +1,19 @@
-﻿using System;
+﻿using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
+using SWYFT_CRM.Models;
+using SWYFT_CRM.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using SWYFT_CRM.Utils;
-using SWYFT_CRM.Models;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Data.SqlClient;
 
 namespace SWYFT_CRM.Repositories
 {
-    public class LeadRepository : BaseRepository, ILeadRepository
+    public class ClientRepository : BaseRepository, IClientRepository
     {
-        public LeadRepository(IConfiguration configuration) : base(configuration) { }
+        public ClientRepository(IConfiguration configuration) : base(configuration) { }
 
-        public List<Lead> GetAllUserLeads(int id)
+        public List<Lead> GetAllUserClients(int id)
         {
             using (SqlConnection conn = Connection)
             {
@@ -24,14 +24,14 @@ namespace SWYFT_CRM.Repositories
                 SELECT l.Id AS LeadId, 
                     l.FirstName, l.LastName, 
                     l.Email,
-                    l.LeadStatusId, l.UserProfileId AS UserProfileId,
-                    l.Client, 
+                    l.LeadStatusId, l.UserProfileId,
+                    l.Client,
+                    l.Sold,
+                    l.SoldDate,
                     l.CoverageTypeId,
                     l.LeadStatusId,
                     l.DateCreated,
                     l.InsuranceCompanyId,
-                    l.Sold,
-                    l.SoldDate,
                     u.FirstName, 
                     u.LastName,
                     u.CreateDateTime as UserProfileDateCreated,
@@ -44,7 +44,8 @@ namespace SWYFT_CRM.Repositories
                     LEFT JOIN CoverageType c on l.CoverageTypeId = c.Id
                     LEFT JOIN InsuranceCompany i on l.InsuranceCompanyId = i.Id
                     LEFT JOIN LeadStatus ls on l.LeadStatusId = ls.Id
-                    WHERE UserProfileId = @Id AND Client= 0";
+                    WHERE UserProfileId = @Id
+                    AND Client = 1";
                     DbUtils.AddParameter(cmd, "@Id", id);
                     SqlDataReader reader = cmd.ExecuteReader();
                     List<Lead> leads = new List<Lead>();
@@ -108,12 +109,12 @@ namespace SWYFT_CRM.Repositories
                     l.Email,
                     l.LeadStatusId, l.UserProfileId,
                     l.Client, 
+                    l.Sold,
+                    l.SoldDate,
                     l.CoverageTypeId,
                     l.LeadStatusId,
                     l.DateCreated,
                     l.InsuranceCompanyId,
-                    l.Sold,
-                    l.SoldDate,
                     u.FirstName, u.LastName,
                     u.Email, 
                     c.[Name] as CoverageTypeName,
@@ -124,7 +125,7 @@ namespace SWYFT_CRM.Repositories
                     LEFT JOIN CoverageType c on l.CoverageTypeId = c.Id
                     LEFT JOIN InsuranceCompany i on l.InsuranceCompanyId = i.Id
                     LEFT JOIN LeadStatus ls on l.LeadStatusId = ls.Id
-                    WHERE l.Id = @Id";
+                    WHERE l.Id = @Id AND Client = 1";
 
                     DbUtils.AddParameter(cmd, "@Id", id);
 
@@ -188,7 +189,7 @@ namespace SWYFT_CRM.Repositories
                     cmd.CommandText = @"
                         INSERT INTO Lead (FirstName, LastName, Email, DateCreated, Client, UserProfileId, LeadStatusId, CoverageTypeId, InsuranceCompanyId)
                         OUTPUT INSERTED.ID
-                        VALUES (@FirstName, @LastName, @Email, @DateCreated, @Client, @UserProfileId, @LeadStatusId, @CoverageTypeId, @InsuranceCompanyId)";
+                        VALUES (@FirstName, @LastName, @Email, @DateCreated, @DateOfBirth, @Client, @UserProfileId, @LeadStatusId, @CoverageTypeId, @InsuranceCompanyId)";
 
                     DbUtils.AddParameter(cmd, "@FirstName", lead.FirstName);
                     DbUtils.AddParameter(cmd, "@LastName", lead.LastName);
@@ -221,7 +222,7 @@ namespace SWYFT_CRM.Repositories
                                 FirstName = @firstName,
                                 LastName = @lastName,
                                 Email = @Email,
-                                DateCreated = @publishDateTime,
+                                DateCreated = @publishDateTime,,
                                 CoverageTypeId = @coverageTypeId,
                                 InsuranceCompanyId = @insuranceCompanyId,
                                 Client = @client,
@@ -239,7 +240,7 @@ namespace SWYFT_CRM.Repositories
                     cmd.Parameters.AddWithValue("@insuranceCompanyId", lead.InsuranceCompanyId);
                     cmd.Parameters.AddWithValue("@client", lead.Client);
                     cmd.Parameters.AddWithValue("@sold", lead.Sold);
-                    cmd.Parameters.AddWithValue("@soldDate", lead.SoldDate == null ? "" : lead.SoldDate);
+                    cmd.Parameters.AddWithValue("@soldDate", lead.SoldDate);
                     cmd.Parameters.AddWithValue("@leadStatusId", lead.LeadStatusId);
                     cmd.Parameters.AddWithValue("@id", lead.Id);
 

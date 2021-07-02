@@ -18,10 +18,10 @@ namespace SWYFT_CRM.Controllers
         }
 
         // GET: api/<LeadController>
-        [HttpGet]
-        public IActionResult Get()
+        [HttpGet("GetUserLeads/{id}")]
+        public IActionResult GetByUser(int id)
         {
-            return Ok(_leadRepository.GetAllUserLeads());
+            return Ok(_leadRepository.GetAllUserLeads(id));
         }
 
         // GET api/<LeadController>/5

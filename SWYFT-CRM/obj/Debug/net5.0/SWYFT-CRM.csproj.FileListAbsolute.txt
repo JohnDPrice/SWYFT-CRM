@@ -55,3 +55,4 @@ C:\Users\newforce-004\workspace\SWYFT-CRM\SWYFT-CRM\obj\Debug\net5.0\ref\SWYFT-C
 C:\Users\newforce-004\workspace\SWYFT-CRM\SWYFT-CRM\obj\Debug\net5.0\SWYFT-CRM.pdb
 C:\Users\newforce-004\workspace\SWYFT-CRM\SWYFT-CRM\obj\Debug\net5.0\SWYFT-CRM.genruntimeconfig.cache
 C:\Users\newforce-004\workspace\SWYFT-CRM\SWYFT-CRM\bin\Debug\net5.0\appsettings.Local.json
+C:\Users\newforce-004\workspace\SWYFT-CRM\SWYFT-CRM\bin\Debug\net5.0\package-lock.json
